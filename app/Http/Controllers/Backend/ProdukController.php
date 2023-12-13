@@ -15,7 +15,7 @@ class ProdukController extends Controller
      */
     public function index(Request $request)
     {
-        $products = Produk::get();
+        $products = Produk::orderBy('id_produk', 'desc')->get();
         return response()->json($products);
     }
 
@@ -50,7 +50,7 @@ class ProdukController extends Controller
 
             $file = $request->file('gambar');
             $filename = $file->getClientOriginalName();
-            
+
             $input['gambar'] = $filename;
             Produk::create($input);
 
@@ -102,7 +102,7 @@ class ProdukController extends Controller
                 $file = $request->file('gambar');
                 $filename = $file->getClientOriginalName();
                 $file->move(storage_path('app/public'), $filename);
-                
+
                 $input['gambar'] = $filename;
             }
 
@@ -131,7 +131,7 @@ class ProdukController extends Controller
             DB::beginTransaction();
             Produk::where('id_produk', $id)->delete();
             DB::commit();
-            
+
             return response()->json([
                 'message' => 'Data berhasil dihapus'
             ], 200);

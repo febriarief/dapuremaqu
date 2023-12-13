@@ -51,7 +51,7 @@ class PesananMasukMail extends Mailable
             with: [
                 'pesanan' => $this->pesanan,
                 'detil_pesanan' => $this->detilPesanan,
-                'url_pesanan' => env('APP_URL') . '/client/order/' . $this->pesanan->id_pesanan
+                'url_pesanan' => env('LOCAL_URL') . '/client/order/' . $this->pesanan->id_pesanan
             ]
         );
     }
