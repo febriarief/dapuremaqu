@@ -25,7 +25,7 @@ class PesananMasukMail extends Mailable
         $this->detilPesanan = [];
         foreach($pesanan->detail as $k => $detail) {
             $this->detilPesanan[$k]['nama_produk']       = $detail->nama_produk;
-            $this->detilPesanan[$k]['gambar_produk']     = "data:image/png;base64," . base64_encode(file_get_contents(storage_path('app/public/' . $detail->gambar_produk)));
+            $this->detilPesanan[$k]['gambar_produk']     = "data:image/png;base64," . base64_encode(file_get_contents(public_path('images/' . $detail->gambar_produk)));
             $this->detilPesanan[$k]['kuantitas_produk']  = $detail->kuantitas_produk;
             $this->detilPesanan[$k]['total']             = $detail->total;
         }
@@ -51,7 +51,7 @@ class PesananMasukMail extends Mailable
             with: [
                 'pesanan' => $this->pesanan,
                 'detil_pesanan' => $this->detilPesanan,
-                'url_pesanan' => env('LOCAL_URL') . '/client/order/' . $this->pesanan->id_pesanan
+                'url_pesanan' => 'https://kelompok-4.my.id/#/order?order_id=' . $this->pesanan->id_pesanan
             ]
         );
     }

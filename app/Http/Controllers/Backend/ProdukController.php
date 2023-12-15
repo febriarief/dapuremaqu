@@ -54,7 +54,7 @@ class ProdukController extends Controller
             $input['gambar'] = $filename;
             Produk::create($input);
 
-            $file->move(storage_path('app/public'), $filename);
+            $file->move(public_path('images'), $filename);
 
             DB::commit();
 
@@ -101,7 +101,7 @@ class ProdukController extends Controller
             if (!is_string($request->gambar)) {
                 $file = $request->file('gambar');
                 $filename = $file->getClientOriginalName();
-                $file->move(storage_path('app/public'), $filename);
+                $file->move(public_path('images'), $filename);
 
                 $input['gambar'] = $filename;
             }
@@ -129,7 +129,8 @@ class ProdukController extends Controller
     {
         try {
             DB::beginTransaction();
-            Produk::where('id_produk', $id)->delete();
+            $produk = Produk::find($id);
+            $produk->delete();
             DB::commit();
 
             return response()->json([
