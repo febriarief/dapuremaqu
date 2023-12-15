@@ -14,7 +14,7 @@ class PesananController extends Controller
 {
     public function index(Request $request)
     {
-        $orders = Pesanan::with('detail')->get();
+        $orders = Pesanan::orderBy('tanggal_pesanan', 'desc')->with('detail')->get();
         return response()->json($orders);
     }
 
